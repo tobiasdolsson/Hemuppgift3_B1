@@ -68,14 +68,11 @@ public class Paillier {
 	
 	}
 	
-	
 	public BigInteger decryptVotes(BigInteger c){
 		BigInteger size = BigInteger.valueOf(encryptedVotes.size());
 		m = c.modPow(lambda, ns);		
-		m = m.subtract(BigInteger.valueOf(1)).divide(n);
-		//m = m.divide(n);		
+		m = m.subtract(BigInteger.valueOf(1)).divide(n);	
 		m = m.multiply(mu).mod(n);
-		//m = m.subtract(n);
 		System.out.println("vtot: "+m);
 		if(m.compareTo(size)>0){
 			System.out.println("Vote result: "+m.subtract(n));
@@ -84,18 +81,17 @@ public class Paillier {
 		return m;
 	}
 	
-	private static long gcd(long a, long b){
-	    while (b > 0)
-	    {
-	        long temp = b;
-	        b = a % b; 
-	        a = temp;
+	private static long gcd(long x, long y){
+	    while (y > 0){
+	        long tmp = y;
+	        y = x % y; 
+	        x = tmp;
 	    }
-	    return a;
+	    return x;
 	}
 	
-	private static long lcm(long a, long b){
-	    return a * (b / gcd(a, b));
+	private static long lcm(long x, long y){
+	    return x * (y / gcd(x, y));
 	}
 	
 
